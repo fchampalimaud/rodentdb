@@ -4,6 +4,8 @@ from django.db import models
 from model_utils import Choices
 from model_utils.models import TimeStampedModel
 
+from .rodent_queryset import RodentQuerySet
+from .rodent_permission import RodentPermission
 
 class Rodent(TimeStampedModel):
 
@@ -65,15 +67,19 @@ class Rodent(TimeStampedModel):
     link = models.URLField(blank=True)
     mta = models.BooleanField(verbose_name="MTA", default=False)
 
+    lab = models.ForeignKey('auth.Group', verbose_name='Ownership', on_delete=models.CASCADE)
+
     # location =
     # contact =
     # pi =
+
+    objects = RodentQuerySet.as_manager()
 
     class Meta:
         verbose_name_plural = "rodent"
 
     def __str__(self):
-        return self.line_name
+        return self.strain_name
 
     def clean(self):
         if self.background == self.BACKGROUNDS.other:
@@ -93,3 +99,12 @@ class Rodent(TimeStampedModel):
                 raise ValidationError({"model_type_other": "This field is required."})
         else:
             self.model_type_other = ""
+
+
+    def save(self, *args, **kwargs):
+
+        super().save(*args, **kwargs)
+
+        RodentPermission.objects.get_or_create(
+            rodent=self, group=self.lab, viewonly=False
+        )
