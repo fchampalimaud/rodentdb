@@ -8,6 +8,7 @@ from .permissions_list import PermissionsListApp
 class RodentForm(ModelFormWidget):
 
     FIELDSETS = [
+        'public',
         ("species", "strain_name", "common_name"),
         ("background", "background_other", " "),
         ("genotype", "genotype_other", " "),

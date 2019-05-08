@@ -43,6 +43,8 @@ class RodentBase(models.Model):
         ("none", "Unavailable"),
     )
 
+    public = models.BooleanField('Public', default=False)
+
     created      = models.DateTimeField('Created', auto_now_add=True)
     modified     = models.DateTimeField('Updated', auto_now=True)
     species      = models.CharField(max_length=5, choices=SPECIES)
@@ -65,8 +67,6 @@ class RodentBase(models.Model):
     # model type
     model_type = models.CharField(max_length=5, choices=MODEL_TYPES)
     model_type_other = models.CharField(max_length=20, verbose_name="Other", blank=True)
-
-    lab = models.ForeignKey('auth.Group', verbose_name='Ownership', on_delete=models.CASCADE)
 
 
     class Meta:
