@@ -6,12 +6,12 @@ from .rodent_queryset import RodentQuerySet
 from .rodent_permission import RodentPermission
 
 
-class RodentBase(models.Model):
+class AbstractRodent(models.Model):
+    """
+    Must be compatible with Congento model scheme!
+    """
 
-    SPECIES = Choices(
-        ("rat", "Rat"),
-        ("mouse", "Mouse")
-    )
+    SPECIES = Choices(("rat", "Rat"), ("mouse", "Mouse"))
 
     BACKGROUNDS = Choices(
         ("c57bl", "C57BL/6"),
@@ -47,18 +47,18 @@ class RodentBase(models.Model):
         ("none", "Unavailable"),
     )
 
-    public = models.BooleanField('Public', default=False)
+    public = models.BooleanField("Public", default=False)
 
-    created      = models.DateTimeField('Created', auto_now_add=True)
-    modified     = models.DateTimeField('Updated', auto_now=True)
-    species      = models.CharField(max_length=5, choices=SPECIES)
-    strain_name  = models.CharField(max_length=20)
-    common_name  = models.CharField(max_length=20)
-    origin       = models.CharField(max_length=20)
+    created = models.DateTimeField("Created", auto_now_add=True)
+    modified = models.DateTimeField("Updated", auto_now=True)
+    species = models.CharField(max_length=5, choices=SPECIES)
+    strain_name = models.CharField(max_length=20)
+    common_name = models.CharField(max_length=20)
+    origin = models.CharField(max_length=20)
     availability = models.CharField(max_length=4, choices=AVAILABILITIES)
-    comments     = models.TextField(blank=True)
-    link         = models.URLField(blank=True)
-    mta          = models.BooleanField(verbose_name="MTA", default=False)
+    comments = models.TextField(blank=True)
+    link = models.URLField(blank=True)
+    mta = models.BooleanField(verbose_name="MTA", default=False)
 
     # background
     background = models.CharField(max_length=5, choices=BACKGROUNDS)
@@ -71,7 +71,6 @@ class RodentBase(models.Model):
     # model type
     model_type = models.CharField(max_length=5, choices=MODEL_TYPES)
     model_type_other = models.CharField(max_length=20, verbose_name="Other", blank=True)
-
 
     class Meta:
         verbose_name_plural = "rodents"
@@ -100,9 +99,11 @@ class RodentBase(models.Model):
             self.model_type_other = ""
 
 
-class Rodent(RodentBase):
+class Rodent(AbstractRodent):
 
-    lab = models.ForeignKey('auth.Group', verbose_name='Ownership', on_delete=models.CASCADE)
+    lab = models.ForeignKey(
+        "auth.Group", verbose_name="Ownership", on_delete=models.CASCADE
+    )
 
     objects = RodentQuerySet.as_manager()
 
@@ -110,4 +111,6 @@ class Rodent(RodentBase):
         super().save(*args, **kwargs)
 
         if self.lab is not None:
-            RodentPermission.objects.get_or_create(rodent=self, group=self.lab, viewonly=False)
+            RodentPermission.objects.get_or_create(
+                rodent=self, group=self.lab, viewonly=False
+            )
