@@ -3,7 +3,7 @@ from pyforms_web.widgets.django import ModelAdminWidget
 from pyforms_web.widgets.django import ModelFormWidget
 
 from rodentdb.models import Rodent
-from .permissions_list import PermissionsListApp
+# from .permissions_list import PermissionsListApp
 
 class RodentForm(ModelFormWidget):
 
@@ -17,10 +17,10 @@ class RodentForm(ModelFormWidget):
         ("availability", "mta", 'lab'),
         "link",
         "comments",
-        'PermissionsListApp'
+        # 'PermissionsListApp'
     ]
 
-    INLINES = [PermissionsListApp]
+    # INLINES = [PermissionsListApp]
 
     LAYOUT_POSITION = conf.ORQUESTRA_NEW_TAB
 
