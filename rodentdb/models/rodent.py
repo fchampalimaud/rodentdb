@@ -74,7 +74,7 @@ class RodentBase(models.Model):
 
 
     class Meta:
-        verbose_name_plural = "rodent"
+        verbose_name_plural = "rodents"
         abstract = True
 
     def __str__(self):
