@@ -10,8 +10,10 @@ class RodentDBConfig(AppConfig):
         from .categories import RodentCategoryApp
         from .backgrounds import RodentBackgroundApp
         from .genotypes import RodentGenotypeApp
+        from .species import RodentSpeciesApp
 
         global RodentApp
         global RodentCategoryApp
         global RodentBackgroundApp
         global RodentGenotypeApp
+        global RodentSpeciesApp

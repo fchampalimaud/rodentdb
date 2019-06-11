@@ -11,8 +11,6 @@ class AbstractRodent(models.Model):
     Must be compatible with Congento model scheme!
     """
 
-    SPECIES = Choices(("rat", "Rat"), ("mouse", "Mouse"))
-
     AVAILABILITIES = Choices(
         ("live", "Live"),
         ("cryo", "Cryopreserved"),
@@ -28,7 +26,7 @@ class AbstractRodent(models.Model):
     mta = models.BooleanField(verbose_name="MTA", default=False)
 
     # Specific fields for this animal model
-    species = models.CharField(max_length=5, choices=SPECIES)
+    species = models.ForeignKey(to='rodentdb.Species', on_delete=models.PROTECT, related_name='rodents')
     strain_name = models.CharField(max_length=20)
     common_name = models.CharField(max_length=20)
     origin = models.CharField(max_length=20)
