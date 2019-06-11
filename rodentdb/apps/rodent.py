@@ -5,6 +5,7 @@ from pyforms_web.widgets.django import ModelFormWidget
 from rodentdb.models import Rodent
 # from .permissions_list import PermissionsListApp
 
+
 class RodentForm(ModelFormWidget):
 
     FIELDSETS = [
@@ -12,7 +13,7 @@ class RodentForm(ModelFormWidget):
         ("species", "strain_name", "common_name"),
         ("background", "background_other", " "),
         ("genotype", "genotype_other", " "),
-        ("model_type", "model_type_other", " "),
+        "category",
         "origin",
         ("availability", "mta", 'lab'),
         "link",
@@ -35,12 +36,8 @@ class RodentForm(ModelFormWidget):
         self.genotype_other.label = "&nbsp"
         self.genotype.changed_event = self.__on_genotype
 
-        self.model_type_other.label = "&nbsp"
-        self.model_type.changed_event = self.__on_model_type
-
         self.__on_background()
         self.__on_genotype()
-        self.__on_model_type()
 
     @property
     def title(self):
@@ -61,12 +58,6 @@ class RodentForm(ModelFormWidget):
         else:
             self.genotype_other.hide()
 
-    def __on_model_type(self):
-        if self.model_type.value == "other":
-            self.model_type_other.show()
-        else:
-            self.model_type_other.hide()
-
 
 class RodentApp(ModelAdminWidget):
 
@@ -83,7 +74,7 @@ class RodentApp(ModelAdminWidget):
         "common_name",
         "background",
         "genotype",
-        "model_type",
+        "category",
         "origin",
         "mta",
         "availability",
@@ -93,7 +84,7 @@ class RodentApp(ModelAdminWidget):
         "species",
         "background",
         "genotype",
-        "model_type",
+        "category",
         "mta",
         "availability",
     ]
@@ -104,7 +95,7 @@ class RodentApp(ModelAdminWidget):
         "common_name__icontains",
         "background__icontains",
         "genotype__icontains",
-        "model_type__icontains",
+        "category__icontains",
         "origin__icontains",
     ]
 

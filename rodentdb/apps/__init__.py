@@ -7,5 +7,7 @@ class RodentDBConfig(AppConfig):
 
     def ready(self):
         from .rodent import RodentApp
+        from .categories import RodentCategoryApp
 
         global RodentApp
+        global RodentCategoryApp

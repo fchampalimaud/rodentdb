@@ -31,14 +31,6 @@ class AbstractRodent(models.Model):
         ("other", "Other"),
     )
 
-    MODEL_TYPES = Choices(
-        ("wt", "WT"),
-        ("tg", "Transgenic"),
-        ("ko", "KO"),
-        ("cre", "Cre/flox"),
-        ("other", "Other"),
-    )
-
     AVAILABILITIES = Choices(
         ("live", "Live"),
         ("cryo", "Cryopreserved"),
@@ -58,6 +50,7 @@ class AbstractRodent(models.Model):
     strain_name = models.CharField(max_length=20)
     common_name = models.CharField(max_length=20)
     origin = models.CharField(max_length=20)
+    category = models.ForeignKey(to='rodentdb.Category', on_delete=models.PROTECT, related_name='rodents')
 
     # background
     background = models.CharField(max_length=5, choices=BACKGROUNDS)
@@ -66,10 +59,6 @@ class AbstractRodent(models.Model):
     # genotype
     genotype = models.CharField(max_length=5, choices=GENOTYPES)
     genotype_other = models.CharField(max_length=20, verbose_name="Other", blank=True)
-
-    # model type
-    model_type = models.CharField(max_length=5, choices=MODEL_TYPES)
-    model_type_other = models.CharField(max_length=20, verbose_name="Other", blank=True)
 
     class Meta:
         verbose_name_plural = "rodents"
@@ -90,12 +79,6 @@ class AbstractRodent(models.Model):
                 raise ValidationError({"genotype_other": "This field is required."})
         else:
             self.genotype_other = ""
-
-        if self.model_type == self.MODEL_TYPES.other:
-            if not self.model_type_other:
-                raise ValidationError({"model_type_other": "This field is required."})
-        else:
-            self.model_type_other = ""
 
 
 class Rodent(AbstractRodent):
