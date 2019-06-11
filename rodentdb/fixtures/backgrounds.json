@@ -1,0 +1,1 @@
+[{"model": "rodentdb.background", "pk": 1, "fields": {"name": "C57BL/6"}}, {"model": "rodentdb.background", "pk": 2, "fields": {"name": "Balb/c"}}, {"model": "rodentdb.background", "pk": 3, "fields": {"name": "129sv"}}, {"model": "rodentdb.background", "pk": 4, "fields": {"name": "FVB"}}, {"model": "rodentdb.background", "pk": 5, "fields": {"name": "Mixed"}}]
