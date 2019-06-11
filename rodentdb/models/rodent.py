@@ -13,15 +13,6 @@ class AbstractRodent(models.Model):
 
     SPECIES = Choices(("rat", "Rat"), ("mouse", "Mouse"))
 
-    BACKGROUNDS = Choices(
-        ("c57bl", "C57BL/6"),
-        ("balb", "Balb/c"),
-        ("sv", "129sv"),
-        ("fvb", "FVB"),
-        ("mixed", "Mixed"),
-        ("other", "Other"),
-    )
-
     GENOTYPES = Choices(
         ("wt", "WT"),
         ("homo", "Homo"),
@@ -51,10 +42,7 @@ class AbstractRodent(models.Model):
     common_name = models.CharField(max_length=20)
     origin = models.CharField(max_length=20)
     category = models.ForeignKey(to='rodentdb.Category', on_delete=models.PROTECT, related_name='rodents')
-
-    # background
-    background = models.CharField(max_length=5, choices=BACKGROUNDS)
-    background_other = models.CharField(max_length=20, verbose_name="Other", blank=True)
+    background = models.ForeignKey(to='rodentdb.Background', on_delete=models.PROTECT, related_name='rodents')
 
     # genotype
     genotype = models.CharField(max_length=5, choices=GENOTYPES)
@@ -68,12 +56,6 @@ class AbstractRodent(models.Model):
         return self.strain_name
 
     def clean(self):
-        if self.background == self.BACKGROUNDS.other:
-            if not self.background_other:
-                raise ValidationError({"background_other": "This field is required."})
-        else:
-            self.background_other = ""
-
         if self.genotype == self.GENOTYPES.other:
             if not self.genotype_other:
                 raise ValidationError({"genotype_other": "This field is required."})
