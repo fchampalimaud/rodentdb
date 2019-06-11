@@ -96,4 +96,3 @@ class RodentApp(ModelAdminWidget):
             return True
 
         return False
-
