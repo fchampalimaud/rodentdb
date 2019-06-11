@@ -39,7 +39,6 @@ class AbstractRodent(models.Model):
         ("other", "Other"),
     )
 
-    # Fields shared with other congento animal models
     AVAILABILITIES = Choices(
         ("live", "Live"),
         ("cryo", "Cryopreserved"),
@@ -47,18 +46,18 @@ class AbstractRodent(models.Model):
         ("none", "Unavailable"),
     )
 
-    public = models.BooleanField("Public", default=False)
-
+    # Fields shared with other congento animal models
     created = models.DateTimeField("Created", auto_now_add=True)
     modified = models.DateTimeField("Updated", auto_now=True)
+    availability = models.CharField(max_length=4, choices=AVAILABILITIES)
+    link = models.URLField(blank=True)
+    mta = models.BooleanField(verbose_name="MTA", default=False)
+
+    # Specific fields for this animal model
     species = models.CharField(max_length=5, choices=SPECIES)
     strain_name = models.CharField(max_length=20)
     common_name = models.CharField(max_length=20)
     origin = models.CharField(max_length=20)
-    availability = models.CharField(max_length=4, choices=AVAILABILITIES)
-    comments = models.TextField(blank=True)
-    link = models.URLField(blank=True)
-    mta = models.BooleanField(verbose_name="MTA", default=False)
 
     # background
     background = models.CharField(max_length=5, choices=BACKGROUNDS)
@@ -100,6 +99,9 @@ class AbstractRodent(models.Model):
 
 
 class Rodent(AbstractRodent):
+    public = models.BooleanField("Public", default=False)
+
+    comments = models.TextField(blank=True)
 
     lab = models.ForeignKey(
         "auth.Group", verbose_name="Ownership", on_delete=models.CASCADE
