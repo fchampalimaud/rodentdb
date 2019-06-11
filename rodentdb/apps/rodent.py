@@ -15,9 +15,10 @@ class RodentForm(ModelFormWidget):
         "genotype",
         "category",
         "origin",
-        ("availability", "mta", 'lab'),
+        ("availability", "mta"),
         "link",
         ("comments", "line_description"),
+        ("maintainer", "ownership"),
         # 'PermissionsListApp'
     ]
 

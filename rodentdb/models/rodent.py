@@ -1,4 +1,5 @@
 from django.core.exceptions import ValidationError
+from django.conf import settings
 from django.db import models
 from model_utils import Choices
 
@@ -48,16 +49,18 @@ class Rodent(AbstractRodent):
 
     comments = models.TextField(blank=True)
 
-    lab = models.ForeignKey(
-        "auth.Group", verbose_name="Ownership", on_delete=models.CASCADE
-    )
+    maintainer = models.ForeignKey(to=settings.AUTH_USER_MODEL, on_delete=models.PROTECT, null=True, blank=True)
+    ownership = models.ForeignKey(to="auth.Group", on_delete=models.PROTECT, null=True, blank=True)
+    # lab = models.ForeignKey(
+    #     "auth.Group", verbose_name="Ownership", on_delete=models.CASCADE
+    # )
 
     objects = RodentQuerySet.as_manager()
 
-    def save(self, *args, **kwargs):
-        super().save(*args, **kwargs)
+    # def save(self, *args, **kwargs):
+    #     super().save(*args, **kwargs)
 
-        if self.lab is not None:
-            RodentPermission.objects.get_or_create(
-                rodent=self, group=self.lab, viewonly=False
-            )
+    #     if self.lab is not None:
+    #         RodentPermission.objects.get_or_create(
+    #             rodent=self, group=self.lab, viewonly=False
+    #         )
