@@ -80,3 +80,14 @@ class RodentApp(ModelAdminWidget):
     ORQUESTRA_MENU = 'left'
     ORQUESTRA_MENU_ORDER = 1
     ORQUESTRA_MENU_ICON = 'paw green'
+
+    @classmethod
+    def has_permissions(cls, user):
+        if user.is_superuser:
+            return True
+
+        if user.groups.filter(name="Rodent Facility").exists():
+            return True
+
+        return False
+
