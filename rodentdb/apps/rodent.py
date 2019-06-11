@@ -10,11 +10,8 @@ class RodentForm(ModelFormWidget):
 
     FIELDSETS = [
         'public',
-        ("species", "strain_name", "common_name"),
-        "background",
-        "genotype",
-        "category",
-        "origin",
+        ("strain_name", "common_name", "origin", " "),
+        ("species", "background", "genotype", "category"),
         ("availability", "mta"),
         "link",
         ("comments", "line_description"),
