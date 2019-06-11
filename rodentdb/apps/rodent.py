@@ -17,7 +17,7 @@ class RodentForm(ModelFormWidget):
         "origin",
         ("availability", "mta", 'lab'),
         "link",
-        "comments",
+        ("comments", "line_description"),
         # 'PermissionsListApp'
     ]
 
@@ -72,6 +72,7 @@ class RodentApp(ModelAdminWidget):
         "strain_name__icontains",
         "common_name__icontains",
         "origin__icontains",
+        "line_description__icontains",
         "comments__icontains",
     ]
 

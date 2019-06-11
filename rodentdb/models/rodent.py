@@ -33,6 +33,7 @@ class AbstractRodent(models.Model):
     category = models.ForeignKey(to='rodentdb.Category', on_delete=models.PROTECT, related_name='rodents')
     background = models.ForeignKey(to='rodentdb.Background', on_delete=models.PROTECT, related_name='rodents')
     genotype = models.ForeignKey(to='rodentdb.Genotype', on_delete=models.PROTECT, related_name='rodents')
+    line_description = models.TextField(blank=True)
 
     class Meta:
         verbose_name_plural = "rodents"
