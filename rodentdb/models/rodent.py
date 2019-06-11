@@ -54,7 +54,7 @@ class Rodent(AbstractRodent):
     #     "auth.Group", verbose_name="Ownership", on_delete=models.CASCADE
     # )
 
-    objects = RodentQuerySet.as_manager()
+    # objects = RodentQuerySet.as_manager()
 
     # def save(self, *args, **kwargs):
     #     super().save(*args, **kwargs)
