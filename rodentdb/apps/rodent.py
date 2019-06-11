@@ -12,7 +12,7 @@ class RodentForm(ModelFormWidget):
         'public',
         ("species", "strain_name", "common_name"),
         "background",
-        ("genotype", "genotype_other", " "),
+        "genotype",
         "category",
         "origin",
         ("availability", "mta", 'lab'),
@@ -30,23 +30,12 @@ class RodentForm(ModelFormWidget):
 
         self.mta.checkbox_type = ""
 
-        self.genotype_other.label = "&nbsp"
-        self.genotype.changed_event = self.__on_genotype
-
-        self.__on_genotype()
-
     @property
     def title(self):
         try:
             return self.model_object.strain_name
         except AttributeError:
             pass  # apparently it defaults to App TITLE
-
-    def __on_genotype(self):
-        if self.genotype.value == "other":
-            self.genotype_other.show()
-        else:
-            self.genotype_other.hide()
 
 
 class RodentApp(ModelAdminWidget):

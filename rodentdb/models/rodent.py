@@ -13,15 +13,6 @@ class AbstractRodent(models.Model):
 
     SPECIES = Choices(("rat", "Rat"), ("mouse", "Mouse"))
 
-    GENOTYPES = Choices(
-        ("wt", "WT"),
-        ("homo", "Homo"),
-        ("het", "Het"),
-        ("hemi", "Hemi"),
-        ("both", "Homo/Het"),
-        ("other", "Other"),
-    )
-
     AVAILABILITIES = Choices(
         ("live", "Live"),
         ("cryo", "Cryopreserved"),
@@ -43,10 +34,7 @@ class AbstractRodent(models.Model):
     origin = models.CharField(max_length=20)
     category = models.ForeignKey(to='rodentdb.Category', on_delete=models.PROTECT, related_name='rodents')
     background = models.ForeignKey(to='rodentdb.Background', on_delete=models.PROTECT, related_name='rodents')
-
-    # genotype
-    genotype = models.CharField(max_length=5, choices=GENOTYPES)
-    genotype_other = models.CharField(max_length=20, verbose_name="Other", blank=True)
+    genotype = models.ForeignKey(to='rodentdb.Genotype', on_delete=models.PROTECT, related_name='rodents')
 
     class Meta:
         verbose_name_plural = "rodents"
@@ -54,13 +42,6 @@ class AbstractRodent(models.Model):
 
     def __str__(self):
         return self.strain_name
-
-    def clean(self):
-        if self.genotype == self.GENOTYPES.other:
-            if not self.genotype_other:
-                raise ValidationError({"genotype_other": "This field is required."})
-        else:
-            self.genotype_other = ""
 
 
 class Rodent(AbstractRodent):
