@@ -1,1 +1,1 @@
-[{"model": "rodentdb.species", "pk": 1, "fields": {"name": "Mouse"}}, {"model": "rodentdb.species", "pk": 2, "fields": {"name": "Rat"}}]
+[{"model": "rodentdb.species", "pk": 1, "fields": {"name": "Mus musculus"}}, {"model": "rodentdb.species", "pk": 2, "fields": {"name": "Rattus norvegicus"}}]
