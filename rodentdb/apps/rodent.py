@@ -69,13 +69,10 @@ class RodentApp(ModelAdminWidget):
     ]
 
     SEARCH_FIELDS = [
-        "species__icontains",
         "strain_name__icontains",
         "common_name__icontains",
-        "background__icontains",
-        "genotype__icontains",
-        "category__icontains",
         "origin__icontains",
+        "comments__icontains",
     ]
 
     USE_DETAILS_TO_EDIT = False  # required to have form in NEW_TAB
