@@ -46,6 +46,12 @@ class AbstractRodent(models.Model):
 class Rodent(AbstractRodent):
     public = models.BooleanField("Public", default=False)
 
+    coat_color = models.ForeignKey(
+        to="rodentdb.CoatColor",
+        on_delete=models.CASCADE,
+        null=True,
+        blank=True,
+    )
     comments = models.TextField(blank=True)
 
     maintainer = models.ForeignKey(to=settings.AUTH_USER_MODEL, on_delete=models.PROTECT, null=True, blank=True)

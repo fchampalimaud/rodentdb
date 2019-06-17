@@ -10,5 +10,6 @@ class RodentAdmin(admin.ModelAdmin):
 
 admin.site.register(models.Background)
 admin.site.register(models.Category)
+admin.site.register(models.CoatColor)
 admin.site.register(models.Genotype)
 admin.site.register(models.Species)

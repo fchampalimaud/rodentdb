@@ -15,6 +15,7 @@ class RodentForm(ModelFormWidget):
             ("species", "category"),
             ("strain_name", "common_name"),
             ("background", "genotype"),
+            "coat_color",
             ("origin", " "),
             ("availability", "link"),
             no_columns("mta"),
