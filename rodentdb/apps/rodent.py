@@ -1,4 +1,5 @@
 from confapp import conf
+from pyforms_web.organizers import no_columns, segment
 from pyforms_web.web.middleware import PyFormsMiddleware
 from pyforms_web.widgets.django import ModelAdminWidget
 from pyforms_web.widgets.django import ModelFormWidget
@@ -10,12 +11,19 @@ from rodentdb.models import Rodent
 class RodentForm(ModelFormWidget):
 
     FIELDSETS = [
-        'public',
-        ("strain_name", "common_name", "origin", " "),
-        ("species", "background", "genotype", "category"),
-        ("availability", "mta"),
-        "link",
-        ("comments", "line_description"),
+        segment(
+            ("species", "category"),
+            ("strain_name", "common_name"),
+            ("background", "genotype"),
+            ("origin", " "),
+            ("availability", "link"),
+            no_columns("mta"),
+            no_columns("public"),
+            "info:You can use the field <b>Line description</b> below to "
+            "provide more details. Use the <b>Comments</b> field below for "
+            "private notes.",
+            ("line_description", "comments"),
+        ),
         # 'PermissionsListApp'
     ]
 
@@ -27,6 +35,10 @@ class RodentForm(ModelFormWidget):
         super().__init__(*args, **kwargs)
 
         self.mta.checkbox_type = ""
+        self.mta.label_visible = False
+        self.public.checkbox_type = ""
+        self.public.label_visible = False
+        self.public.label = "Share with Congento network"
 
     @property
     def title(self):
@@ -53,11 +65,10 @@ class RodentApp(ModelAdminWidget):
 
     LIST_DISPLAY = [
         "species",
-        "strain_name",
-        "common_name",
-        "background",
-        "genotype",
         "category",
+        "strain_name",
+        "genotype",
+        "background",
         "origin",
         "mta",
         "availability",
@@ -65,9 +76,9 @@ class RodentApp(ModelAdminWidget):
 
     LIST_FILTER = [
         "species",
-        "background",
-        "genotype",
         "category",
+        "genotype",
+        "background",
         "mta",
         "availability",
         "ownership",
