@@ -70,6 +70,7 @@ class RodentApp(ModelAdminWidget):
         "category",
         "mta",
         "availability",
+        "ownership",
     ]
 
     SEARCH_FIELDS = [
