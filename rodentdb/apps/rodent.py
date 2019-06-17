@@ -17,6 +17,7 @@ class RodentForm(ModelFormWidget):
             ("background", "genotype"),
             "coat_color",
             "reporter_gene",
+            "inducible_cassette",
             ("origin", " "),
             ("availability", "link"),
             no_columns("mta"),
