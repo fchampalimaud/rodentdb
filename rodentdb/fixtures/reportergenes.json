@@ -1,0 +1,1 @@
+[{"model": "rodentdb.reportergene", "pk": 1, "fields": {"name": "GFP"}}, {"model": "rodentdb.reportergene", "pk": 2, "fields": {"name": "YFP"}}, {"model": "rodentdb.reportergene", "pk": 3, "fields": {"name": "RFP"}}, {"model": "rodentdb.reportergene", "pk": 4, "fields": {"name": "B-gal"}}]

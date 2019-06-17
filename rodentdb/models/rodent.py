@@ -52,6 +52,12 @@ class Rodent(AbstractRodent):
         null=True,
         blank=True,
     )
+    reporter_gene = models.ForeignKey(
+        to="rodentdb.ReporterGene",
+        on_delete=models.CASCADE,
+        null=True,
+        blank=True,
+    )
     comments = models.TextField(blank=True)
 
     maintainer = models.ForeignKey(to=settings.AUTH_USER_MODEL, on_delete=models.PROTECT, null=True, blank=True)
