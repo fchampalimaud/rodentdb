@@ -105,7 +105,9 @@ class RodentApp(ModelAdminWidget):
         if user.is_superuser:
             return True
 
-        if user.groups.filter(name="Rodent Facility").exists():
+        if user.memberships.filter(
+                group__accesses__db=cls.MODEL._meta.app_label
+        ).exists():
             return True
 
         return False
