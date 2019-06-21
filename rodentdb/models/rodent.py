@@ -1,4 +1,5 @@
 from django.conf import settings
+from django.core.exceptions import ValidationError
 from django.db import models
 from model_utils import Choices
 
@@ -29,7 +30,8 @@ class AbstractRodent(models.Model):
     species = models.ForeignKey(to='rodentdb.Species', on_delete=models.PROTECT, related_name='rodents')
     strain_name = models.CharField(max_length=20)
     common_name = models.CharField(max_length=20)
-    origin = models.CharField(max_length=20)
+    origin = models.ForeignKey(to="rodentdb.Origin", on_delete=models.PROTECT, related_name="rodents")
+    origin_other = models.CharField(verbose_name="origin", max_length=40, blank=True)
     category = models.ForeignKey(to='rodentdb.Category', on_delete=models.PROTECT, related_name='rodents')
     background = models.ForeignKey(to='rodentdb.Background', on_delete=models.PROTECT, related_name='rodents', null=True, blank=True)
     zygosity = models.ManyToManyField(to='rodentdb.Zygosity', related_name='rodents', blank=True)
@@ -59,6 +61,13 @@ class AbstractRodent(models.Model):
 
     def __str__(self):
         return self.strain_name
+
+    def clean(self):
+        if self.origin.name.lower() == "other":
+            if not self.origin_other:
+                raise ValidationError({"origin_other": "This field is required."})
+        else:
+            self.origin_other = ""
 
 
 class Rodent(AbstractRodent):

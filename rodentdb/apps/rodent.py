@@ -3,30 +3,12 @@ from pyforms_web.organizers import no_columns, segment
 from pyforms_web.web.middleware import PyFormsMiddleware
 from pyforms_web.widgets.django import ModelAdminWidget
 from pyforms_web.widgets.django import ModelFormWidget
-
+from pyforms.controls import ControlEmptyWidget
 from rodentdb.models import Rodent
 # from .permissions_list import PermissionsListApp
 
 
 class RodentForm(ModelFormWidget):
-
-    FIELDSETS = [
-        segment(
-            ("species", "category"),
-            ("strain_name", "common_name"),
-            ("background", "zygosity"),
-            ("reporter_gene", "inducible_cassette"),
-            ("coat_color", "origin"),
-            ("availability", "link"),
-            no_columns("mta"),
-            no_columns("public"),
-            "info:You can use the <b>Line description</b> field below to "
-            "provide more details. Use the <b>Comments</b> field below for "
-            "private notes.",
-            ("line_description", "comments"),
-        ),
-        # 'PermissionsListApp'
-    ]
 
     # INLINES = [PermissionsListApp]
 
@@ -41,6 +23,12 @@ class RodentForm(ModelFormWidget):
         self.public.label_visible = False
         self.public.label = "Share with Congento network"
 
+        self.origin_other_placeholder = ControlEmptyWidget()
+        self.origin_other.label = "Please specify other origin"
+        self.origin.changed_event = self.__on_origin
+
+        self.__on_origin()
+
     @property
     def title(self):
         try:
@@ -50,9 +38,46 @@ class RodentForm(ModelFormWidget):
 
     def get_fieldsets(self, default):
         user = PyFormsMiddleware.user()
+
+        default = [
+            segment(
+                ("species", "category"),
+                ("strain_name", "common_name"),
+                ("background", "zygosity"),
+                ("reporter_gene", "inducible_cassette"),
+                ("coat_color", " "),
+                ("origin", "origin_other", "origin_other_placeholder"),
+                ("availability", "link"),
+                no_columns("mta"),
+                no_columns("public"),
+                "info:You can use the <b>Line description</b> field below to "
+                "provide more details. Use the <b>Comments</b> field below for "
+                "private notes.",
+                ("line_description", "comments"),
+            ),
+            # 'PermissionsListApp'
+
+        ]
+
         if user.is_superuser:
             default += [("maintainer", "ownership"),]
+
         return default
+
+    def __on_origin(self):
+        model = self.origin.queryset.model
+        try:
+            selected_value = model.objects.get(pk=self.origin.value)
+        except model.DoesNotExist:
+            self.origin_other.hide()
+            self.origin_other_placeholder.show()
+        else:
+            if selected_value.name.lower() == "other":
+                self.origin_other.show()
+                self.origin_other_placeholder.hide()
+            else:
+                self.origin_other.hide()
+                self.origin_other_placeholder.show()
 
 
 class RodentApp(ModelAdminWidget):
