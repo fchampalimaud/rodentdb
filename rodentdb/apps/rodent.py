@@ -108,6 +108,7 @@ class RodentApp(ModelAdminWidget):
         "mta",
         "availability",
         "ownership",
+        "public",
     ]
 
     SEARCH_FIELDS = [
@@ -136,3 +137,8 @@ class RodentApp(ModelAdminWidget):
             return True
 
         return False
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+        self._list.custom_filter_labels = {"public": "Shared with Congento"}
