@@ -34,18 +34,6 @@ class AbstractRodent(models.Model):
     background = models.ForeignKey(to='rodentdb.Background', on_delete=models.PROTECT, related_name='rodents', null=True, blank=True)
     zygosity = models.ManyToManyField(to='rodentdb.Zygosity', related_name='rodents', blank=True)
     line_description = models.TextField(blank=True)
-
-    class Meta:
-        verbose_name_plural = "rodents"
-        abstract = True
-
-    def __str__(self):
-        return self.strain_name
-
-
-class Rodent(AbstractRodent):
-    public = models.BooleanField("Public", default=False)
-
     coat_color = models.ForeignKey(
         to="rodentdb.CoatColor",
         on_delete=models.CASCADE,
@@ -64,6 +52,17 @@ class Rodent(AbstractRodent):
         null=True,
         blank=True,
     )
+
+    class Meta:
+        verbose_name_plural = "rodents"
+        abstract = True
+
+    def __str__(self):
+        return self.strain_name
+
+
+class Rodent(AbstractRodent):
+    public = models.BooleanField("Public", default=False)
 
     comments = models.TextField(blank=True)
 
