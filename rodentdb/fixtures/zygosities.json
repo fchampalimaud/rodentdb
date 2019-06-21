@@ -1,0 +1,1 @@
+[{"model": "rodentdb.zygosity", "pk": 1, "fields": {"name": "WT"}}, {"model": "rodentdb.zygosity", "pk": 2, "fields": {"name": "Homo"}}, {"model": "rodentdb.zygosity", "pk": 3, "fields": {"name": "Het"}}, {"model": "rodentdb.zygosity", "pk": 4, "fields": {"name": "Hemi"}}]
