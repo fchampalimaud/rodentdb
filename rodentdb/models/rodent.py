@@ -24,7 +24,6 @@ class AbstractRodent(models.Model):
     modified = models.DateTimeField("Updated", auto_now=True)
     availability = models.CharField(max_length=4, choices=AVAILABILITIES)
     link = models.URLField(blank=True)
-    mta = models.BooleanField(verbose_name="MTA", default=False)
 
     # Specific fields for this animal model
     species = models.ForeignKey(to='rodentdb.Species', on_delete=models.PROTECT, related_name='rodents')
@@ -72,6 +71,7 @@ class AbstractRodent(models.Model):
 
 class Rodent(AbstractRodent):
     public = models.BooleanField("Public", default=False)
+    mta = models.BooleanField(verbose_name="MTA", default=False)
 
     comments = models.TextField(blank=True)
 
