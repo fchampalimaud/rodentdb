@@ -10,16 +10,16 @@ class RodentDBConfig(AppConfig):
         from .categories import RodentCategoryApp
         from .coat_colors import RodentCoatColorApp
         from .backgrounds import RodentBackgroundApp
-        from .genotypes import RodentGenotypeApp
         from .inducible_cassettes import RodentInducibleCassetteApp
         from .reporter_genes import RodentReporterGeneApp
         from .species import RodentSpeciesApp
+        from .zygosities import RodentZygosityApp
 
         global RodentApp
         global RodentCategoryApp
         global RodentCoatColorApp
         global RodentBackgroundApp
-        global RodentGenotypeApp
         global RodentInducibleCassetteApp
         global RodentReporterGeneApp
         global RodentSpeciesApp
+        global RodentZygosityApp

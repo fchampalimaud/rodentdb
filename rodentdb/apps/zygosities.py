@@ -2,24 +2,24 @@ from confapp import conf
 from pyforms_web.widgets.django import ModelAdminWidget
 from pyforms_web.widgets.django import ModelFormWidget
 
-from rodentdb.models import Genotype
+from rodentdb.models import Zygosity
 
 
-class RodentGenotypeForm(ModelFormWidget):
+class RodentZygosityForm(ModelFormWidget):
 
     FIELDSETS = ["name"]
 
     LAYOUT_POSITION = conf.ORQUESTRA_NEW_WINDOW
 
 
-class RodentGenotypeApp(ModelAdminWidget):
+class RodentZygosityApp(ModelAdminWidget):
 
-    UID = 'rodent-genotypes'
-    MODEL = Genotype
+    UID = 'rodent-zygosities'
+    MODEL = Zygosity
 
-    TITLE = 'Genotypes'
+    TITLE = 'Zygosities'
 
-    EDITFORM_CLASS = RodentGenotypeForm
+    EDITFORM_CLASS = RodentZygosityForm
 
     USE_DETAILS_TO_ADD = False  # required to have form in NEW_TAB
     USE_DETAILS_TO_EDIT = False  # required to have form in NEW_TAB

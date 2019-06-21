@@ -14,7 +14,7 @@ class RodentForm(ModelFormWidget):
         segment(
             ("species", "category"),
             ("strain_name", "common_name"),
-            ("background", "genotype"),
+            ("background", "zygosity"),
             ("reporter_gene", "inducible_cassette"),
             ("coat_color", "origin"),
             ("availability", "link"),
@@ -68,7 +68,7 @@ class RodentApp(ModelAdminWidget):
         "species",
         "category",
         "strain_name",
-        "genotype",
+        "zygosity",
         "background",
         "origin",
         "mta",
@@ -78,7 +78,7 @@ class RodentApp(ModelAdminWidget):
     LIST_FILTER = [
         "species",
         "category",
-        "genotype",
+        "zygosity",
         "background",
         "mta",
         "availability",

@@ -32,7 +32,7 @@ class AbstractRodent(models.Model):
     origin = models.CharField(max_length=20)
     category = models.ForeignKey(to='rodentdb.Category', on_delete=models.PROTECT, related_name='rodents')
     background = models.ForeignKey(to='rodentdb.Background', on_delete=models.PROTECT, related_name='rodents', null=True, blank=True)
-    genotype = models.ForeignKey(to='rodentdb.Genotype', on_delete=models.PROTECT, related_name='rodents')
+    zygosity = models.ForeignKey(to='rodentdb.Zygosity', on_delete=models.PROTECT, related_name='rodents')
     line_description = models.TextField(blank=True)
 
     class Meta:
