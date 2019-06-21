@@ -1,8 +1,8 @@
 from django.db import models
 
 
-    name = models.CharField(max_length=80)
 class Zygosity(models.Model):
+    name = models.CharField(max_length=20)
 
     class Meta:
         verbose_name = 'zygosity'
