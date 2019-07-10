@@ -70,7 +70,7 @@ class AbstractRodent(models.Model):
 
 
 class Rodent(AbstractRodent):
-    public = models.BooleanField("Public", default=False)
+    public = models.BooleanField(verbose_name="Public through Congento", default=False)
     mta = models.BooleanField(verbose_name="MTA", default=False)
 
     comments = models.TextField(blank=True)

@@ -21,7 +21,6 @@ class RodentForm(ModelFormWidget):
         self.mta.label_visible = False
         self.public.checkbox_type = ""
         self.public.label_visible = False
-        self.public.label = "Share with Congento network"
 
         self.origin_other_placeholder = ControlEmptyWidget()
         self.origin_other.label = "Please specify other origin"
@@ -140,5 +139,3 @@ class RodentApp(ModelAdminWidget):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-
-        self._list.custom_filter_labels = {"public": "Shared with Congento"}
