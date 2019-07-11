@@ -59,7 +59,7 @@ class RodentForm(ModelFormWidget):
         ]
 
         if user.is_superuser:
-            default += [("maintainer", "ownership"),]
+            default += [("maintainer", "ownership", "created", "modified"),]
 
         return default
 
