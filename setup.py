@@ -14,7 +14,7 @@ setup(
     description="rodents database",
     long_description=README,
     long_description_content_type="text/markdown",
-    url="https://bitbucket.org/fchampalimaud/rodentdb",
+    url="https://github.com/fchampalimaud/rodentdb",
     author=["Hugo Cachitas"],
     author_email=["hugo.cachitas@research.fchampalimaud.org"],
     classifiers=[
