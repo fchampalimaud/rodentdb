@@ -14,10 +14,10 @@ class RodentInducibleCassetteForm(ModelFormWidget):
 
 class RodentInducibleCassetteApp(ModelAdminWidget):
 
-    UID = 'rodent-induciblecassettes'
+    UID = "rodent-induciblecassettes"
     MODEL = InducibleCassette
 
-    TITLE = 'Inducible Cassettes'
+    TITLE = "Inducible Cassettes"
 
     EDITFORM_CLASS = RodentInducibleCassetteForm
 
@@ -25,9 +25,9 @@ class RodentInducibleCassetteApp(ModelAdminWidget):
     USE_DETAILS_TO_EDIT = False  # required to have form in NEW_TAB
 
     LAYOUT_POSITION = conf.ORQUESTRA_HOME
-    ORQUESTRA_MENU = 'left>RodentApp'
+    ORQUESTRA_MENU = "left>RodentApp"
     ORQUESTRA_MENU_ORDER = 1
-    ORQUESTRA_MENU_ICON = 'cog'
+    ORQUESTRA_MENU_ICON = "cog"
 
     @classmethod
     def has_permissions(cls, user):

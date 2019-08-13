@@ -25,32 +25,37 @@ class AbstractRodent(models.Model):
     link = models.URLField(blank=True)
 
     # Specific fields for this animal model
-    species = models.ForeignKey(to='rodentdb.Species', on_delete=models.PROTECT, related_name='rodents')
+    species = models.ForeignKey(
+        to="rodentdb.Species", on_delete=models.PROTECT, related_name="rodents"
+    )
     strain_name = models.CharField(max_length=20)
     common_name = models.CharField(max_length=20)
-    origin = models.ForeignKey(to="rodentdb.Origin", on_delete=models.PROTECT, related_name="rodents")
+    origin = models.ForeignKey(
+        to="rodentdb.Origin", on_delete=models.PROTECT, related_name="rodents"
+    )
     origin_other = models.CharField(verbose_name="origin", max_length=40, blank=True)
-    category = models.ForeignKey(to='rodentdb.Category', on_delete=models.PROTECT, related_name='rodents')
-    background = models.ForeignKey(to='rodentdb.Background', on_delete=models.PROTECT, related_name='rodents', null=True, blank=True)
-    zygosity = models.ManyToManyField(to='rodentdb.Zygosity', related_name='rodents', blank=True)
+    category = models.ForeignKey(
+        to="rodentdb.Category", on_delete=models.PROTECT, related_name="rodents"
+    )
+    background = models.ForeignKey(
+        to="rodentdb.Background",
+        on_delete=models.PROTECT,
+        related_name="rodents",
+        null=True,
+        blank=True,
+    )
+    zygosity = models.ManyToManyField(
+        to="rodentdb.Zygosity", related_name="rodents", blank=True
+    )
     line_description = models.TextField(blank=True)
     coat_color = models.ForeignKey(
-        to="rodentdb.CoatColor",
-        on_delete=models.CASCADE,
-        null=True,
-        blank=True,
+        to="rodentdb.CoatColor", on_delete=models.CASCADE, null=True, blank=True
     )
     reporter_gene = models.ForeignKey(
-        to="rodentdb.ReporterGene",
-        on_delete=models.CASCADE,
-        null=True,
-        blank=True,
+        to="rodentdb.ReporterGene", on_delete=models.CASCADE, null=True, blank=True
     )
     inducible_cassette = models.ForeignKey(
-        to="rodentdb.InducibleCassette",
-        on_delete=models.CASCADE,
-        null=True,
-        blank=True,
+        to="rodentdb.InducibleCassette", on_delete=models.CASCADE, null=True, blank=True
     )
 
     class Meta:
@@ -74,7 +79,11 @@ class Rodent(AbstractRodent):
 
     comments = models.TextField(blank=True)
 
-    maintainer = models.ForeignKey(to=settings.AUTH_USER_MODEL, on_delete=models.PROTECT, null=True, blank=True)
-    ownership = models.ForeignKey(to="users.Group", on_delete=models.PROTECT, null=True, blank=True)
+    maintainer = models.ForeignKey(
+        to=settings.AUTH_USER_MODEL, on_delete=models.PROTECT, null=True, blank=True
+    )
+    ownership = models.ForeignKey(
+        to="users.Group", on_delete=models.PROTECT, null=True, blank=True
+    )
 
     objects = RodentQuerySet.as_manager()

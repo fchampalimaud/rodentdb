@@ -54,8 +54,7 @@ class RodentForm(FormPermissionsMixin, ModelFormWidget):
                 "provide more details. Use the <b>Comments</b> field below for "
                 "private notes.",
                 ("line_description", "comments"),
-            ),
-
+            )
         ]
         if self.object_pk:  # editing existing object
             default += [("maintainer", "ownership", "created", "modified")]
@@ -85,10 +84,10 @@ class RodentForm(FormPermissionsMixin, ModelFormWidget):
 
 class RodentApp(ModelAdminWidget):
 
-    UID = 'rodentdb'
+    UID = "rodentdb"
     MODEL = Rodent
 
-    TITLE = 'Rodents'
+    TITLE = "Rodents"
 
     EDITFORM_CLASS = RodentForm
 
@@ -125,9 +124,9 @@ class RodentApp(ModelAdminWidget):
     USE_DETAILS_TO_EDIT = False  # required to have form in NEW_TAB
 
     LAYOUT_POSITION = conf.ORQUESTRA_HOME
-    ORQUESTRA_MENU = 'left'
+    ORQUESTRA_MENU = "left"
     ORQUESTRA_MENU_ORDER = 1
-    ORQUESTRA_MENU_ICON = 'paw green'
+    ORQUESTRA_MENU_ICON = "paw green"
 
     @classmethod
     def has_permissions(cls, user):
@@ -135,7 +134,7 @@ class RodentApp(ModelAdminWidget):
             return True
 
         if user.memberships.filter(
-                group__accesses__animaldb=cls.MODEL._meta.app_label
+            group__accesses__animaldb=cls.MODEL._meta.app_label
         ).exists():
             return True
 

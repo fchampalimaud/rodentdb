@@ -14,10 +14,10 @@ class RodentSpeciesForm(ModelFormWidget):
 
 class RodentSpeciesApp(ModelAdminWidget):
 
-    UID = 'rodent-species'
+    UID = "rodent-species"
     MODEL = Species
 
-    TITLE = 'Species'
+    TITLE = "Species"
 
     EDITFORM_CLASS = RodentSpeciesForm
 
@@ -25,9 +25,9 @@ class RodentSpeciesApp(ModelAdminWidget):
     USE_DETAILS_TO_EDIT = False  # required to have form in NEW_TAB
 
     LAYOUT_POSITION = conf.ORQUESTRA_HOME
-    ORQUESTRA_MENU = 'left>RodentApp'
+    ORQUESTRA_MENU = "left>RodentApp"
     ORQUESTRA_MENU_ORDER = 1
-    ORQUESTRA_MENU_ICON = 'cog'
+    ORQUESTRA_MENU_ICON = "cog"
 
     @classmethod
     def has_permissions(cls, user):

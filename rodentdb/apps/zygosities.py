@@ -14,10 +14,10 @@ class RodentZygosityForm(ModelFormWidget):
 
 class RodentZygosityApp(ModelAdminWidget):
 
-    UID = 'rodent-zygosities'
+    UID = "rodent-zygosities"
     MODEL = Zygosity
 
-    TITLE = 'Zygosities'
+    TITLE = "Zygosities"
 
     EDITFORM_CLASS = RodentZygosityForm
 
@@ -25,9 +25,9 @@ class RodentZygosityApp(ModelAdminWidget):
     USE_DETAILS_TO_EDIT = False  # required to have form in NEW_TAB
 
     LAYOUT_POSITION = conf.ORQUESTRA_HOME
-    ORQUESTRA_MENU = 'left>RodentApp'
+    ORQUESTRA_MENU = "left>RodentApp"
     ORQUESTRA_MENU_ORDER = 1
-    ORQUESTRA_MENU_ICON = 'cog'
+    ORQUESTRA_MENU_ICON = "cog"
 
     @classmethod
     def has_permissions(cls, user):
