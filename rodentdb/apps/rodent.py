@@ -5,12 +5,15 @@ from pyforms_web.widgets.django import ModelAdminWidget
 from pyforms_web.widgets.django import ModelFormWidget
 from pyforms.controls import ControlEmptyWidget
 from rodentdb.models import Rodent
-# from .permissions_list import PermissionsListApp
+
+from users.apps._utils import FormPermissionsMixin
+from users.apps._utils import limit_choices_to_database
+# FIXME import this when users model is not present
 
 
-class RodentForm(ModelFormWidget):
+class RodentForm(FormPermissionsMixin, ModelFormWidget):
 
-    # INLINES = [PermissionsListApp]
+    CLOSE_ON_REMOVE = True
 
     LAYOUT_POSITION = conf.ORQUESTRA_NEW_TAB
 
@@ -36,8 +39,6 @@ class RodentForm(ModelFormWidget):
             pass  # apparently it defaults to App TITLE
 
     def get_fieldsets(self, default):
-        user = PyFormsMiddleware.user()
-
         default = [
             segment(
                 ("species", "category"),
@@ -54,14 +55,17 @@ class RodentForm(ModelFormWidget):
                 "private notes.",
                 ("line_description", "comments"),
             ),
-            # 'PermissionsListApp'
 
         ]
-
-        if user.is_superuser:
-            default += [("maintainer", "ownership", "created", "modified"),]
+        if self.object_pk:  # editing existing object
+            default += [("maintainer", "ownership", "created", "modified")]
 
         return default
+
+    def get_related_field_queryset(self, field, queryset):
+        animaldb = self.model._meta.app_label
+        queryset = limit_choices_to_database(animaldb, field, queryset)
+        return queryset
 
     def __on_origin(self):
         model = self.origin.queryset.model

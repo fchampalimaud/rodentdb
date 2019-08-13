@@ -6,5 +6,4 @@ from .inducible_cassette import InducibleCassette
 from .origin import Origin
 from .reporter_gene import ReporterGene
 from .species import Species
-from .rodent_permission import RodentPermission
 from .zygosity import Zygosity

@@ -3,8 +3,7 @@ from django.core.exceptions import ValidationError
 from django.db import models
 from model_utils import Choices
 
-from .rodent_queryset import RodentQuerySet
-from .rodent_permission import RodentPermission
+from rodentdb.querysets import RodentQuerySet
 
 
 class AbstractRodent(models.Model):
@@ -77,16 +76,5 @@ class Rodent(AbstractRodent):
 
     maintainer = models.ForeignKey(to=settings.AUTH_USER_MODEL, on_delete=models.PROTECT, null=True, blank=True)
     ownership = models.ForeignKey(to="auth.Group", on_delete=models.PROTECT, null=True, blank=True)
-    # lab = models.ForeignKey(
-    #     "auth.Group", verbose_name="Ownership", on_delete=models.CASCADE
-    # )
 
-    # objects = RodentQuerySet.as_manager()
-
-    # def save(self, *args, **kwargs):
-    #     super().save(*args, **kwargs)
-
-    #     if self.lab is not None:
-    #         RodentPermission.objects.get_or_create(
-    #             rodent=self, group=self.lab, viewonly=False
-    #         )
+    objects = RodentQuerySet.as_manager()
