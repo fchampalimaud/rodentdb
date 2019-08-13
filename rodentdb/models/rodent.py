@@ -75,6 +75,6 @@ class Rodent(AbstractRodent):
     comments = models.TextField(blank=True)
 
     maintainer = models.ForeignKey(to=settings.AUTH_USER_MODEL, on_delete=models.PROTECT, null=True, blank=True)
-    ownership = models.ForeignKey(to="auth.Group", on_delete=models.PROTECT, null=True, blank=True)
+    ownership = models.ForeignKey(to="users.Group", on_delete=models.PROTECT, null=True, blank=True)
 
     objects = RodentQuerySet.as_manager()
