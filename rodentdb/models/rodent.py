@@ -61,7 +61,7 @@ class AbstractRodent(models.Model):
         return self.strain_name
 
     def clean(self):
-        if self.origin.name.lower() == "other":
+        if hasattr(self, "origin") and self.origin.name.lower() == "other":
             if not self.origin_other:
                 raise ValidationError({"origin_other": "This field is required."})
         else:
