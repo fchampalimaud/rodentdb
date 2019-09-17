@@ -36,7 +36,7 @@ class RodentForm(FormPermissionsMixin, ModelFormWidget):
         try:
             return self.model_object.strain_name
         except AttributeError:
-            pass  # apparently it defaults to App TITLE
+            return ModelFormWidget.title.fget(self)
 
     def get_fieldsets(self, default):
         default = [
