@@ -1,0 +1,7 @@
+i.congento-rodent.icon {
+    background-color: currentColor;
+    -webkit-mask-image: url(congento-rodent.svg);
+    -webkit-mask-size: contain;
+    -webkit-mask-repeat: no-repeat;
+    -webkit-mask-position: top center;
+}
