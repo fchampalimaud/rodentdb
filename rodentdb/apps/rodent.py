@@ -201,4 +201,20 @@ class RodentApp(ModelAdminWidget):
         return False
 
     def __init__(self, *args, **kwargs):
+
+        self._import_btn = ControlButton(
+            '<i class="upload icon"></i>Import',
+            default=self.__import_evt,
+            label_visible=False,
+            css='basic blue',
+            helptext='Import Rodent from CSV file',
+        )
+
         super().__init__(*args, **kwargs)
+
+    def get_toolbar_buttons(self, has_add_permission=False):
+        toolbar = super().get_toolbar_buttons(has_add_permission)
+        return tuple([no_columns(toolbar, "_import_btn")])
+    
+    def __import_evt(self):
+        RodentImportWidget(parent_win=self)
