@@ -14,7 +14,7 @@ from tablib.core import Dataset, UnsupportedFormat
 import shutil
 from os.path import dirname
 # FIXME import this when users model is not present
-
+from django.urls import reverse
 
 class RodentImportWidget(BaseWidget):
     TITLE = 'Import Rodent'   
@@ -216,11 +216,21 @@ class RodentApp(ModelAdminWidget):
             helptext='Import Rodent from CSV file',
         )
 
+        url = reverse('get_rodent_template')
+
+        self._download_btn = ControlButton(
+            '<i class="download icon"></i>Template',
+            default='window.open("{0}");'.format(url),
+            label_visible=False,
+            css="basic blue",
+            helptext="Download Rodent template as a CSV file",
+        )
+
         super().__init__(*args, **kwargs)
 
     def get_toolbar_buttons(self, has_add_permission=False):
         toolbar = super().get_toolbar_buttons(has_add_permission)
-        return tuple([no_columns(toolbar, "_import_btn")])
+        return tuple([no_columns(toolbar, "_import_btn", "_download_btn")])
     
     def __import_evt(self):
         RodentImportWidget(parent_win=self)
