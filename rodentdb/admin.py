@@ -26,6 +26,7 @@ class RodentResource(resources.ModelResource):
         model = Rodent
         skip_unchanged = True
         clean_model_instances = True
+        exclude = ('id', 'created', 'modified')
 
 @admin.register(models.Rodent)
 class RodentAdmin(ImportMixin, ExportActionMixin, admin.ModelAdmin):
