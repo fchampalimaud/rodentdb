@@ -27,6 +27,10 @@ class RodentResource(resources.ModelResource):
         skip_unchanged = True
         clean_model_instances = True
         exclude = ('id', 'created', 'modified')
+        export_order = ('species', 'category', 'strain_name', 'common_name', 'background', 'zygosity', 'reporter_gene', 
+                        'inducible_cassette', 'coat_color', 'origin', 'origin_other', 
+                        'availability', 'link', 'mta', 'public', 'line_description', 'comments',
+                        'maintainer', 'ownership')
 
 @admin.register(models.Rodent)
 class RodentAdmin(ImportMixin, ExportActionMixin, admin.ModelAdmin):
