@@ -13,6 +13,7 @@ from users.apps._utils import limit_choices_to_database
 from tablib.core import Dataset, UnsupportedFormat
 import shutil
 import logging
+import tablib
 from os.path import dirname
 # FIXME import this when users model is not present
 from django.urls import reverse
@@ -48,14 +49,17 @@ class RodentImportWidget(BaseWidget):
 
         rodent_resource = RodentResource()
 
-        if self._csv_file.filepath is not None:
-            dataset = Dataset()
+        path = self._csv_file.filepath
+        _, file_extension = os.path.splitext(path)
 
+        if path and (path.endswith('.csv') or path.endswith('.xls') or path.endswith('.xlsx')):
             try:
-                with open(self._csv_file.filepath, 'r') as f:
-                    imported_file = dataset.load(f.read())
+                with open(self._csv_file.filepath, 'r' if file_extension == '.csv' else 'rb' ) as f:
+                    dataset = tablib.import_set(f.read(), format=file_extension[1:])
             except UnsupportedFormat as uf:
-                raise Exception("Unsupported format. Please select a CSV file with the Rodent template columns")
+                raise Exception(
+                    "Unsupported format. Please select a CSV in UTF-8, XLS or XLSX file with the Rodent template columns"
+                )
             finally:
                 shutil.rmtree(dirname(self._csv_file.filepath))
 
