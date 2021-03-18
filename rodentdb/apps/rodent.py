@@ -270,7 +270,16 @@ class RodentApp(ModelAdminWidget):
 
     def get_toolbar_buttons(self, has_add_permission=False):
         toolbar = super().get_toolbar_buttons(has_add_permission)
-        return tuple([no_columns(toolbar, "_import_btn", "_download_btn")])
-    
+
+        user = PyFormsMiddleware.user()
+        animaldb = self.model._meta.app_label
+
+        buttons = (toolbar,)
+
+        if user.has_perm(animaldb + ".can_import"):
+            buttons += ("_import_btn", "_download_btn")
+
+        return no_columns(*buttons)
+
     def __import_evt(self):
         RodentImportWidget(parent_win=self)
