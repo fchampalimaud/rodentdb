@@ -87,3 +87,6 @@ class Rodent(AbstractRodent):
     )
 
     objects = RodentQuerySet.as_manager()
+
+    class Meta:
+        permissions = [("can_import", "Can import from XLSX")]
