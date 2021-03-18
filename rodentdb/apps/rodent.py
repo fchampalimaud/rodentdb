@@ -22,8 +22,8 @@ logger = logging.getLogger(__name__)
 
 
 class RodentImportWidget(BaseWidget):
-    TITLE = 'Import Rodent'   
-    
+    TITLE = 'Import Rodent'
+
     LAYOUT_POSITION = conf.ORQUESTRA_NEW_WINDOW
     CREATE_BTN_LABEL = '<i class="upload icon"></i>Import'
     HAS_CANCEL_BTN_ON_ADD = False
@@ -52,7 +52,7 @@ class RodentImportWidget(BaseWidget):
         path = self._csv_file.filepath
         if not path:
             raise Exception('No file selected to import. Please select a file and try again.')
-        
+
         _, file_extension = os.path.splitext(path)
 
         if path and (path.endswith('.csv') or path.endswith('.xls') or path.endswith('.xlsx')):
@@ -83,7 +83,7 @@ class RodentImportWidget(BaseWidget):
                     err_lst = row[1]
                     for err in err_lst:
                         errors_msg += f"<li>Row #{row[0] - 1} &rarr; {str(err.error)}</li>"
-                
+
                 if len(errors_msg) > 0:
                     errors_msg = f"<ul>{errors_msg}</ul>"
 
